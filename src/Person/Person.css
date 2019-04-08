@@ -1,0 +1,15 @@
+.Person {
+    box-shadow: -9px -7px 16px 0px rgba(135,119,135,0.5);
+    margin: auto;
+    width: 60%;
+    text-align: center
+}
+
+.Person_two {
+    width: 60%;
+    margin: auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 16px;
+    text-align: center
+}
