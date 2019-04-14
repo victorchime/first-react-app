@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -30,35 +30,49 @@ class App extends Component {
     });
   }
 
+  deleteHandler = (index) => {
+
+    const personsCopy = [...this.state.persons]
+    personsCopy.splice(index, 1);
+    this.setState({
+      persons: personsCopy
+    })
+
+  }
+
   render() {
 
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    }
     let person = null;
+    let buttonClass = null;
 
     if (this.state.personIsVisible) {
       person = (
         <div>
           {this.state.persons.map((person, index) => {
-            return (<Person id={person.id} name={person.name} age={person.age} nameChanger={this.nameChangeHandler} />);
+            return (<Person key={person.id} name={person.name} age={person.age} 
+              nameChanger={this.nameChangeHandler} onClick={this.deleteHandler} personClick={() => this.deleteHandler(index)}/>);
           })
           }
         </div>
       );
 
-      style.backgroundColor = 'red';
+      buttonClass = classes.Red
     }
 
+    const assignedClasses = [];
+
+    if(this.state.persons.length <= 2){
+        assignedClasses.push(classes.red)
+    }
+    if(this.state.persons.length <= 1){
+        assignedClasses.push(classes.bold)
+    }
+    
     return (
-        <div className="App">
+        <div className={classes.App}>
           <h1>I am Victor</h1>
-          <button style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
+          <p className={assignedClasses.join(' ')}>This is really working!</p>
+          <button className={buttonClass} onClick={this.togglePersonHandler}>Toggle Persons</button>
           {person}
         </div>
     );
@@ -66,3 +80,4 @@ class App extends Component {
 }
 
 export default App;
+
